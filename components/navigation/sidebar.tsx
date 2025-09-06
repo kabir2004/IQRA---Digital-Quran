@@ -161,43 +161,53 @@ export function Sidebar({ className }: SidebarProps) {
 
   return (
     <div className={cn(
-      "flex h-full flex-col border-r bg-card/50 backdrop-blur-sm transition-smooth",
+      "flex h-full flex-col bg-card/50 backdrop-blur-sm transition-all duration-300 ease-out",
       isCollapsed ? "w-16" : "w-64",
       className
     )}>
       {/* Header */}
-      <div className="flex h-16 items-center justify-between px-4 border-b">
+      <div className={cn(
+        "flex h-16 items-center transition-all duration-300 ease-out",
+        isCollapsed ? "justify-center px-2" : "justify-between px-4"
+      )}>
         {isCollapsed ? (
           // Collapsed state - clean minimal logo box
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-            <BookOpen className="w-5 h-5 text-primary-foreground" />
-          </div>
+          <VercelButton
+            variant="ghost"
+            size="sm"
+            onClick={toggleSidebar}
+            className="w-8 h-8 p-0 rounded-lg bg-muted hover:bg-muted/80 flex items-center justify-center flex-shrink-0 transition-all duration-200 ease-out shadow-none logo-no-shadow"
+          >
+            <BookOpen className="w-4 h-4 text-muted-foreground" />
+          </VercelButton>
         ) : (
           // Expanded state - full logo with text
-          <div className="flex items-center space-x-2 transition-smooth">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-              <BookOpen className="w-5 h-5 text-primary-foreground" />
+          <div className="flex items-center space-x-2 transition-all duration-300 ease-out">
+            <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 shadow-none logo-no-shadow">
+              <BookOpen className="w-4 h-4 text-muted-foreground" />
             </div>
-            <div className="min-w-0">
-              <h1 className="text-lg font-bold">IQRA</h1>
+            <div className="min-w-0 transition-all duration-300 ease-out">
+              <h1 className="text-lg font-semibold">IQRA</h1>
               <p className="text-xs text-muted-foreground">Digital Quran</p>
             </div>
           </div>
         )}
-        <VercelButton
-          variant="ghost"
-          size="sm"
-          onClick={toggleSidebar}
-          className="h-8 w-8 p-0 flex-shrink-0"
-        >
-          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-        </VercelButton>
+        {!isCollapsed && (
+          <VercelButton
+            variant="ghost"
+            size="sm"
+            onClick={toggleSidebar}
+            className="h-8 w-8 p-0 flex-shrink-0 transition-all duration-200 ease-out hover:bg-muted/50"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </VercelButton>
+        )}
       </div>
 
       {/* Quick Stats */}
       <div className={cn(
-        "p-4 space-y-3 border-b transition-smooth",
-        isCollapsed ? "opacity-0 h-0 p-0 overflow-hidden" : "opacity-100"
+        "transition-all duration-300 ease-out overflow-hidden",
+        isCollapsed ? "opacity-0 h-0 p-0" : "opacity-100 p-4 space-y-3"
       )}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -229,17 +239,26 @@ export function Sidebar({ className }: SidebarProps) {
         </div>
 
       {/* Navigation */}
-      <ScrollArea className="flex-1 px-2 py-4">
-        <nav className="space-y-6">
+      <ScrollArea className={cn(
+        "flex-1 transition-all duration-300 ease-out",
+        isCollapsed ? "px-1 py-4" : "px-2 py-4"
+      )}>
+        <nav className={cn(
+          "transition-all duration-300 ease-out",
+          isCollapsed ? "space-y-4" : "space-y-6"
+        )}>
           {navigationItems.map((section) => (
             <div key={section.title}>
               <h3 className={cn(
-                "px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 transition-smooth",
-                isCollapsed ? "opacity-0 h-0 overflow-hidden" : "opacity-100"
+                "px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 transition-all duration-300 ease-out overflow-hidden",
+                isCollapsed ? "opacity-0 h-0" : "opacity-100"
               )}>
                 {section.title}
               </h3>
-              <div className="space-y-1">
+              <div className={cn(
+                "transition-all duration-300 ease-out",
+                isCollapsed ? "space-y-2" : "space-y-1"
+              )}>
                 {section.items.map((item) => {
                   const Icon = item.icon
                   const active = isActive(item.href)
@@ -247,17 +266,24 @@ export function Sidebar({ className }: SidebarProps) {
                   return (
                     <Link key={item.href} href={item.href}>
                       <VercelButton
-                        variant={active ? "secondary" : "ghost"}
+                        variant="ghost"
                         className={cn(
-                          "w-full justify-start h-10 px-2",
-                          isCollapsed && "px-2",
-                          active && "bg-primary/10 text-primary border border-primary/20"
+                          "w-full h-10 transition-all duration-200 ease-out",
+                          isCollapsed ? "px-2 justify-center" : "px-3 justify-start",
+                          // No highlight for Dashboard, Progress, and Analytics - they stay as simple ghost buttons
+                          // Keep highlight for other items
+                          !(item.href === '/dashboard' || item.href === '/progress' || item.href === '/achievements') && isCollapsed && active && "bg-primary text-primary-foreground",
+                          !(item.href === '/dashboard' || item.href === '/progress' || item.href === '/achievements') && !isCollapsed && active && "bg-primary/10 text-primary border border-primary/20",
+                          "hover:bg-muted/50"
                         )}
                       >
-                        <Icon className={cn("h-4 w-4 flex-shrink-0", !isCollapsed && "mr-3")} />
+                        <Icon className={cn(
+                          "h-4 w-4 flex-shrink-0 transition-all duration-200 ease-out",
+                          !isCollapsed && "mr-3"
+                        )} />
                         <div className={cn(
-                          "flex-1 text-left transition-smooth",
-                          isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+                          "flex-1 text-left transition-all duration-300 ease-out overflow-hidden",
+                          isCollapsed ? "opacity-0 w-0" : "opacity-100"
                         )}>
                           <div className="font-medium">{item.title}</div>
                           <div className="text-xs text-muted-foreground">{item.description}</div>
@@ -273,11 +299,17 @@ export function Sidebar({ className }: SidebarProps) {
       </ScrollArea>
 
       {/* Footer */}
-      <div className="p-4 border-t">
-        <div className="flex items-center justify-between">
+      <div className={cn(
+        "transition-all duration-300 ease-out",
+        isCollapsed ? "p-2" : "p-4"
+      )}>
+        <div className={cn(
+          "flex items-center transition-all duration-300 ease-out",
+          isCollapsed ? "justify-center" : "justify-between"
+        )}>
           <div className={cn(
-            "flex items-center space-x-2 transition-smooth",
-            isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+            "flex items-center space-x-2 transition-all duration-300 ease-out overflow-hidden",
+            isCollapsed ? "opacity-0 w-0" : "opacity-100"
           )}>
             <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
               <span className="text-sm font-medium">U</span>

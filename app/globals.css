@@ -783,9 +783,21 @@
   }
 }
 
+
 /* Focus improvements for mobile */
 @media (max-width: 768px) {
   .mobile-focus:focus-visible {
     @apply ring-4 ring-primary/50 ring-offset-2;
   }
+}
+
+/* Remove shadows from logo for seamless appearance */
+.logo-no-shadow {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.logo-no-shadow:hover {
+  box-shadow: none !important;
+  filter: none !important;
 }
