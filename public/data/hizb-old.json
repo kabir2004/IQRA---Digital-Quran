@@ -1,0 +1,82 @@
+[
+  {
+    "index": 1,
+    "name": "First Quarter of First Juz",
+    "juz": 1,
+    "quarter": 1,
+    "start_surah": 1,
+    "start_ayah": 1,
+    "end_surah": 1,
+    "end_ayah": 7
+  },
+  {
+    "index": 2,
+    "name": "Second Quarter of First Juz",
+    "juz": 1,
+    "quarter": 2,
+    "start_surah": 2,
+    "start_ayah": 1,
+    "end_surah": 2,
+    "end_ayah": 25
+  },
+  {
+    "index": 3,
+    "name": "Third Quarter of First Juz",
+    "juz": 1,
+    "quarter": 3,
+    "start_surah": 2,
+    "start_ayah": 26,
+    "end_surah": 2,
+    "end_ayah": 75
+  },
+  {
+    "index": 4,
+    "name": "Fourth Quarter of First Juz",
+    "juz": 1,
+    "quarter": 4,
+    "start_surah": 2,
+    "start_ayah": 76,
+    "end_surah": 2,
+    "end_ayah": 141
+  },
+  {
+    "index": 5,
+    "name": "First Quarter of Second Juz",
+    "juz": 2,
+    "quarter": 1,
+    "start_surah": 2,
+    "start_ayah": 142,
+    "end_surah": 2,
+    "end_ayah": 176
+  },
+  {
+    "index": 6,
+    "name": "Second Quarter of Second Juz", 
+    "juz": 2,
+    "quarter": 2,
+    "start_surah": 2,
+    "start_ayah": 177,
+    "end_surah": 2,
+    "end_ayah": 202
+  },
+  {
+    "index": 7,
+    "name": "Third Quarter of Second Juz",
+    "juz": 2,
+    "quarter": 3,
+    "start_surah": 2,
+    "start_ayah": 203,
+    "end_surah": 2,
+    "end_ayah": 226
+  },
+  {
+    "index": 8,
+    "name": "Fourth Quarter of Second Juz",
+    "juz": 2,
+    "quarter": 4,
+    "start_surah": 2,
+    "start_ayah": 227,
+    "end_surah": 2,
+    "end_ayah": 252
+  }
+]

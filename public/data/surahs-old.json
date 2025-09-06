@@ -1,0 +1,37 @@
+[
+  {
+    "index": 1,
+    "name_ar": "الفَاتِحَة",
+    "name_en": "Al-Fātiḥah",
+    "revelation_place": "Meccan",
+    "verses": 7
+  },
+  {
+    "index": 2,
+    "name_ar": "البَقَرَة",
+    "name_en": "Al-Baqarah",
+    "revelation_place": "Medinan",
+    "verses": 286
+  },
+  {
+    "index": 3,
+    "name_ar": "آل عِمْرَان",
+    "name_en": "Āl ʿImrān",
+    "revelation_place": "Medinan",
+    "verses": 200
+  },
+  {
+    "index": 4,
+    "name_ar": "النِّسَاء",
+    "name_en": "An-Nisāʾ",
+    "revelation_place": "Medinan",
+    "verses": 176
+  },
+  {
+    "index": 5,
+    "name_ar": "المَائِدَة",
+    "name_en": "Al-Māʾidah",
+    "revelation_place": "Medinan",
+    "verses": 120
+  }
+]

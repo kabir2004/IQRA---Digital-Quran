@@ -1,0 +1,42 @@
+[
+  {
+    "index": 1,
+    "name": "Alif Lam Meem",
+    "start_surah": 1,
+    "start_ayah": 1,
+    "end_surah": 2,
+    "end_ayah": 141
+  },
+  {
+    "index": 2,
+    "name": "Sayaqool",
+    "start_surah": 2,
+    "start_ayah": 142,
+    "end_surah": 2,
+    "end_ayah": 252
+  },
+  {
+    "index": 3,
+    "name": "Tilka Ar-Rusul",
+    "start_surah": 2,
+    "start_ayah": 253,
+    "end_surah": 3,
+    "end_ayah": 92
+  },
+  {
+    "index": 4,
+    "name": "Lan Tanaloo",
+    "start_surah": 3,
+    "start_ayah": 93,
+    "end_surah": 4,
+    "end_ayah": 23
+  },
+  {
+    "index": 5,
+    "name": "Wal Muhsanat",
+    "start_surah": 4,
+    "start_ayah": 24,
+    "end_surah": 4,
+    "end_ayah": 147
+  }
+]
