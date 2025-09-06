@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -25,7 +25,7 @@ import type { Surah, Juz, Hizb, MushafPage } from "@/lib/data/adapter"
 
 type ReadingDivision = 'surahs' | 'juz' | 'hizb' | 'mushaf'
 
-export default function ReadPage() {
+function ReadPageContent() {
   const searchParams = useSearchParams()
   const [surahs, setSurahs] = useState<Surah[]>([])
   const [juzList, setJuzList] = useState<Juz[]>([])
@@ -309,5 +309,13 @@ export default function ReadPage() {
         </Tabs>
       </div>
     </div>
+  )
+}
+
+export default function ReadPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReadPageContent />
+    </Suspense>
   )
 }
