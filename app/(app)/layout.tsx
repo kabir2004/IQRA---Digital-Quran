@@ -5,6 +5,7 @@ import { Header } from '@/components/navigation/header'
 import { PageTransition } from '@/components/transitions/page-transition'
 import { ProgressInitializer } from '@/components/progress-initializer'
 import { useSidebarStore } from '@/store/sidebar'
+import { useMetrics } from '@/hooks/use-metrics'
 import { cn } from '@/lib/utils'
 
 export default function AppLayout({
@@ -13,6 +14,7 @@ export default function AppLayout({
   children: React.ReactNode
 }) {
   const { isCollapsed, isMobileOpen, setMobileSidebarOpen } = useSidebarStore()
+  const { trackClick } = useMetrics()
 
   return (
     <div className="flex h-screen bg-background">
@@ -28,7 +30,10 @@ export default function AppLayout({
         <div className="fixed inset-0 z-50 md:hidden">
           <div 
             className="fixed inset-0 bg-background/80 backdrop-blur-sm" 
-            onClick={() => setMobileSidebarOpen(false)} 
+            onClick={() => {
+              setMobileSidebarOpen(false)
+              trackClick('mobile_sidebar_overlay', 'navigation')
+            }} 
           />
           <div className="fixed inset-y-0 left-0 z-50 w-64">
             <Sidebar />

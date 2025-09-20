@@ -19,17 +19,16 @@ import {
   Type,
   BookOpen,
   Bookmark,
-  BookmarkCheck,
-  Play,
-  Pause
+  BookmarkCheck
 } from "lucide-react"
 import { dataAdapter } from "@/lib/data/localAdapter"
 import { useSettingsStore } from "@/store/settings"
 import { useBookmarksStore } from "@/store/bookmarks"
 import { useAudioStore } from "@/store/audio"
+import { SimplePlayButton } from "@/components/ui/simple-play-button"
+import { PronunciationButton } from "@/components/ui/pronunciation-button"
 import { ReadingNavigation } from "@/components/reading-navigation"
-import { ReadingAchievements } from "@/components/reading-achievements"
-import type { Ayah, Translation, Transliteration, Surah, Juz } from "@/lib/data/adapter"
+import type { Ayah, Translation, Transliteration, Juz } from "@/lib/data/adapter"
 
 export default function JuzReadingPage() {
   const params = useParams()
@@ -47,7 +46,6 @@ export default function JuzReadingPage() {
   
   const { fontSize, rtl } = useSettingsStore()
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarksStore()
-  const { isPlaying, currentSurah, currentAyah, play, pause } = useAudioStore()
 
   useEffect(() => {
     const loadJuzData = async () => {
@@ -95,13 +93,6 @@ export default function JuzReadingPage() {
     }
   }
 
-  const handleAudioToggle = (surahNum: number, ayahNumber: number) => {
-    if (isPlaying && currentSurah === surahNum && currentAyah === ayahNumber) {
-      pause()
-    } else {
-      play(surahNum, ayahNumber)
-    }
-  }
 
   const navigateToJuz = (direction: 'prev' | 'next') => {
     const newJuz = direction === 'prev' ? juzNumber - 1 : juzNumber + 1
@@ -268,7 +259,6 @@ export default function JuzReadingPage() {
               const translation = translations.find(t => t.ayah === ayah.ayah)
               const transliteration = transliterations.find(t => t.ayah === ayah.ayah)
               const bookmarked = isBookmarked(ayah.surah, ayah.ayah)
-              const playingThis = isPlaying && currentSurah === ayah.surah && currentAyah === ayah.ayah
 
               return (
                 <Card key={`${ayah.surah}-${ayah.ayah}`} className="border-2 border-border">
@@ -282,17 +272,17 @@ export default function JuzReadingPage() {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <Button
+                        <SimplePlayButton 
+                          text={ayah.text}
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleAudioToggle(ayah.surah, ayah.ayah)}
-                        >
-                          {playingThis ? (
-                            <Pause className="w-4 h-4" />
-                          ) : (
-                            <Play className="w-4 h-4" />
-                          )}
-                        </Button>
+                        />
+                        
+                        <PronunciationButton
+                          originalText={ayah.text}
+                          variant="ghost"
+                          size="sm"
+                        />
                         
                         <Button
                           variant="ghost"
@@ -367,7 +357,6 @@ export default function JuzReadingPage() {
       </div>
 
       {/* Reading Achievements Overlay */}
-      <ReadingAchievements />
     </div>
   )
 }

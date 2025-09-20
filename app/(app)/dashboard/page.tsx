@@ -91,7 +91,7 @@ export default function Dashboard() {
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Link href="/read">
-                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-2 border-border h-full">
+                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border border-border h-full">
                   <CardHeader className="text-center">
                     <BookOpen className="w-12 h-12 mx-auto mb-4 text-primary" />
                     <CardTitle>Read Quran</CardTitle>
@@ -101,7 +101,7 @@ export default function Dashboard() {
               </Link>
 
               <Link href="/search">
-                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-2 border-border h-full">
+                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border border-border h-full">
                   <CardHeader className="text-center">
                     <Search className="w-12 h-12 mx-auto mb-4 text-primary" />
                     <CardTitle>Search</CardTitle>
@@ -111,7 +111,7 @@ export default function Dashboard() {
               </Link>
 
               <Link href="/bookmarks">
-                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-2 border-border h-full">
+                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border border-border h-full">
                   <CardHeader className="text-center">
                     <Bookmark className="w-12 h-12 mx-auto mb-4 text-primary" />
                     <CardTitle>Bookmarks</CardTitle>
@@ -121,7 +121,7 @@ export default function Dashboard() {
               </Link>
 
               <Link href="/settings">
-                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-2 border-border h-full">
+                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border border-border h-full">
                   <CardHeader className="text-center">
                     <Settings className="w-12 h-12 mx-auto mb-4 text-primary" />
                     <CardTitle>Settings</CardTitle>
@@ -133,7 +133,7 @@ export default function Dashboard() {
 
             {/* Key Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="border-2 border-primary/20 bg-primary/5">
+              <Card className="border border-border">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Current Streak</CardTitle>
                   <Flame className="h-4 w-4 text-orange-500" />
@@ -146,7 +146,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-primary/20 bg-primary/5">
+              <Card className="border border-border">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Verses Read</CardTitle>
                   <BookOpen className="h-4 w-4 text-blue-500" />
@@ -159,7 +159,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-primary/20 bg-primary/5">
+              <Card className="border border-border">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Reading Time</CardTitle>
                   <Clock className="h-4 w-4 text-green-500" />
@@ -172,7 +172,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-primary/20 bg-primary/5">
+              <Card className="border border-border">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Learning Score</CardTitle>
                   <TrendingUp className="h-4 w-4 text-purple-500" />
@@ -188,7 +188,7 @@ export default function Dashboard() {
 
             {/* Today's Progress and Weekly Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Target className="h-5 w-5 text-primary" />
@@ -216,7 +216,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Activity className="h-5 w-5 text-primary" />
@@ -254,7 +254,7 @@ export default function Dashboard() {
 
             {/* Recent Achievements */}
             {unlockedAchievements.length > 0 && (
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Trophy className="h-5 w-5 text-yellow-500" />
@@ -278,7 +278,7 @@ export default function Dashboard() {
 
           {/* Progress Tab */}
           <TabsContent value="progress" className="space-y-6">
-            <Card className="border-2 border-primary/20 bg-primary/5">
+            <Card className="border border-border">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-primary" />
@@ -318,7 +318,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border border-border">
               <CardHeader>
                 <CardTitle>Reading Habits</CardTitle>
                 <CardDescription>Understanding your reading patterns</CardDescription>
@@ -353,7 +353,7 @@ export default function Dashboard() {
           {/* Achievements Tab */}
           <TabsContent value="achievements" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Trophy className="h-5 w-5 text-yellow-500" />
@@ -375,7 +375,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award className="h-5 w-5 text-muted-foreground" />
@@ -402,7 +402,7 @@ export default function Dashboard() {
           {/* Insights Tab */}
           <TabsContent value="insights" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-green-600">
                     <Star className="h-5 w-5" />
@@ -425,7 +425,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-blue-600">
                     <Target className="h-5 w-5" />
@@ -448,7 +448,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-purple-600">
                     <Trophy className="h-5 w-5" />
@@ -472,7 +472,7 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            <Card>
+            <Card className="border border-border">
               <CardHeader>
                 <CardTitle>Learning Score Breakdown</CardTitle>
                 <CardDescription>How your score of {productivityScore}/100 is calculated</CardDescription>

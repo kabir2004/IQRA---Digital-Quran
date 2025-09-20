@@ -19,17 +19,15 @@ import {
   Type,
   BookOpen,
   Bookmark,
-  BookmarkCheck,
-  Play,
-  Pause
+  BookmarkCheck
 } from "lucide-react"
 import { dataAdapter } from "@/lib/data/localAdapter"
 import { useSettingsStore } from "@/store/settings"
 import { useBookmarksStore } from "@/store/bookmarks"
-import { useAudioStore } from "@/store/audio"
 import { useProgressStore } from "@/store/progress"
+import { SimplePlayButton } from "@/components/ui/simple-play-button"
+import { PronunciationButton } from "@/components/ui/pronunciation-button"
 import { ReadingNavigation } from "@/components/reading-navigation"
-import { ReadingAchievements } from "@/components/reading-achievements"
 import type { Ayah, Translation, Transliteration, MushafPage } from "@/lib/data/adapter"
 
 export default function MushafPageReadingPage() {
@@ -49,7 +47,6 @@ export default function MushafPageReadingPage() {
   
   const { fontSize, rtl } = useSettingsStore()
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarksStore()
-  const { isPlaying, currentSurah, currentAyah, play, pause } = useAudioStore()
   const { 
     startReadingSession, 
     endReadingSession, 
@@ -144,13 +141,6 @@ export default function MushafPageReadingPage() {
     }
   }
 
-  const handleAudioToggle = (surahNum: number, ayahNumber: number) => {
-    if (isPlaying && currentSurah === surahNum && currentAyah === ayahNumber) {
-      pause()
-    } else {
-      play(surahNum, ayahNumber)
-    }
-  }
 
   const navigateToPage = (direction: 'prev' | 'next') => {
     const newPage = direction === 'prev' ? pageNumber - 1 : pageNumber + 1
@@ -326,7 +316,6 @@ export default function MushafPageReadingPage() {
               const translation = translations.find(t => t.ayah === ayah.ayah)
               const transliteration = transliterations.find(t => t.ayah === ayah.ayah)
               const bookmarked = isBookmarked(ayah.surah, ayah.ayah)
-              const playingThis = isPlaying && currentSurah === ayah.surah && currentAyah === ayah.ayah
 
               return (
                 <Card key={`${ayah.surah}-${ayah.ayah}`} className="border-2 border-border" data-verse-id={`${ayah.surah}:${ayah.ayah}`}>
@@ -343,17 +332,17 @@ export default function MushafPageReadingPage() {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <Button
+                        <SimplePlayButton 
+                          text={ayah.text}
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleAudioToggle(ayah.surah, ayah.ayah)}
-                        >
-                          {playingThis ? (
-                            <Pause className="w-4 h-4" />
-                          ) : (
-                            <Play className="w-4 h-4" />
-                          )}
-                        </Button>
+                        />
+                        
+                        <PronunciationButton
+                          originalText={ayah.text}
+                          variant="ghost"
+                          size="sm"
+                        />
                         
                         <Button
                           variant="ghost"
@@ -432,7 +421,6 @@ export default function MushafPageReadingPage() {
       </div>
 
       {/* Reading Achievements Overlay */}
-      <ReadingAchievements />
     </div>
   )
 }

@@ -22,7 +22,25 @@ export const useSidebarStore = create<SidebarState>()(
     }),
     {
       name: 'sidebar-storage',
+      version: 1,
       partialize: (state) => ({ isCollapsed: state.isCollapsed }),
+      migrate: (persistedState: any, version: number) => {
+        // If version is 0 (no version), migrate to version 1
+        if (version === 0) {
+          return { isCollapsed: persistedState.isCollapsed || false }
+        }
+        return persistedState
+      },
+      // Add fallback to handle migration errors
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.warn('Sidebar store rehydration failed, using default state:', error)
+          // Clear the corrupted storage
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('sidebar-storage')
+          }
+        }
+      }
     }
   )
 )

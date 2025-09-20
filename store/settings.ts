@@ -63,6 +63,24 @@ export const useSettingsStore = create<SettingsState>()(
     {
       name: 'iqra-settings',
       version: 1,
+      migrate: (persistedState: any, version: number) => {
+        // If version is 0 (no version), migrate to version 1
+        if (version === 0) {
+          // Merge with current initialState to ensure all required fields exist
+          return { ...initialState, ...persistedState }
+        }
+        return persistedState
+      },
+      // Add fallback to handle migration errors
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.warn('Settings store rehydration failed, using default state:', error)
+          // Clear the corrupted storage
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('iqra-settings')
+          }
+        }
+      }
     }
   )
 )

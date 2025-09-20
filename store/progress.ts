@@ -581,6 +581,7 @@ export const useProgressStore = create<ProgressState>()(
     }),
     {
       name: 'iqra-progress-storage',
+      version: 1,
       partialize: (state) => ({
         currentPosition: state.currentPosition,
         surahProgress: state.surahProgress,
@@ -600,6 +601,24 @@ export const useProgressStore = create<ProgressState>()(
         totalDaysActive: state.totalDaysActive,
         lastActiveDate: state.lastActiveDate,
       }),
+      migrate: (persistedState: any, version: number) => {
+        // If version is 0 (no version), migrate to version 1
+        if (version === 0) {
+          // Merge with current initialState to ensure all required fields exist
+          return { ...initialState, ...persistedState }
+        }
+        return persistedState
+      },
+      // Add fallback to handle migration errors
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.warn('Progress store rehydration failed, using default state:', error)
+          // Clear the corrupted storage
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('iqra-progress-storage')
+          }
+        }
+      }
     }
   )
 )

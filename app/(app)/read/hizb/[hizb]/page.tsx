@@ -20,16 +20,14 @@ import {
   BookOpen,
   Bookmark,
   BookmarkCheck,
-  Play,
-  Pause,
   BookMarked
 } from "lucide-react"
 import { dataAdapter } from "@/lib/data/localAdapter"
 import { useSettingsStore } from "@/store/settings"
 import { useBookmarksStore } from "@/store/bookmarks"
-import { useAudioStore } from "@/store/audio"
+import { SimplePlayButton } from "@/components/ui/simple-play-button"
+import { PronunciationButton } from "@/components/ui/pronunciation-button"
 import { ReadingNavigation } from "@/components/reading-navigation"
-import { ReadingAchievements } from "@/components/reading-achievements"
 import type { Ayah, Translation, Transliteration, Hizb } from "@/lib/data/adapter"
 
 export default function HizbReadingPage() {
@@ -48,7 +46,6 @@ export default function HizbReadingPage() {
   
   const { fontSize, rtl } = useSettingsStore()
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarksStore()
-  const { isPlaying, currentSurah, currentAyah, play, pause } = useAudioStore()
 
   useEffect(() => {
     const loadHizbData = async () => {
@@ -95,13 +92,6 @@ export default function HizbReadingPage() {
     }
   }
 
-  const handleAudioToggle = (surahNum: number, ayahNumber: number) => {
-    if (isPlaying && currentSurah === surahNum && currentAyah === ayahNumber) {
-      pause()
-    } else {
-      play(surahNum, ayahNumber)
-    }
-  }
 
   const navigateToHizb = (direction: 'prev' | 'next') => {
     const newHizb = direction === 'prev' ? hizbNumber - 1 : hizbNumber + 1
@@ -274,7 +264,6 @@ export default function HizbReadingPage() {
               const translation = translations.find(t => t.ayah === ayah.ayah)
               const transliteration = transliterations.find(t => t.ayah === ayah.ayah)
               const bookmarked = isBookmarked(ayah.surah, ayah.ayah)
-              const playingThis = isPlaying && currentSurah === ayah.surah && currentAyah === ayah.ayah
 
               return (
                 <Card key={`${ayah.surah}-${ayah.ayah}`} className="border-2 border-border">
@@ -288,17 +277,17 @@ export default function HizbReadingPage() {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <Button
+                        <SimplePlayButton 
+                          text={ayah.text}
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleAudioToggle(ayah.surah, ayah.ayah)}
-                        >
-                          {playingThis ? (
-                            <Pause className="w-4 h-4" />
-                          ) : (
-                            <Play className="w-4 h-4" />
-                          )}
-                        </Button>
+                        />
+                        
+                        <PronunciationButton
+                          originalText={ayah.text}
+                          variant="ghost"
+                          size="sm"
+                        />
                         
                         <Button
                           variant="ghost"
@@ -373,7 +362,6 @@ export default function HizbReadingPage() {
       </div>
 
       {/* Reading Achievements Overlay */}
-      <ReadingAchievements />
     </div>
   )
 }

@@ -97,6 +97,26 @@ export const useBookmarksStore = create<BookmarksState>()(
     {
       name: 'iqra-bookmarks',
       version: 1,
+      migrate: (persistedState: any, version: number) => {
+        // If version is 0 (no version), migrate to version 1
+        if (version === 0) {
+          // Ensure bookmarks array exists and has proper structure
+          const bookmarks = persistedState.bookmarks || []
+          const lastRead = persistedState.lastRead || null
+          return { bookmarks, lastRead }
+        }
+        return persistedState
+      },
+      // Add fallback to handle migration errors
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.warn('Bookmarks store rehydration failed, using default state:', error)
+          // Clear the corrupted storage
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('iqra-bookmarks')
+          }
+        }
+      }
     }
   )
 )

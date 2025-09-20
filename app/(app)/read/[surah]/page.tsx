@@ -19,16 +19,15 @@ import {
   BookOpen,
   Bookmark,
   BookmarkCheck,
-  Play,
-  Pause,
   Volume2
 } from "lucide-react"
 import { dataAdapter } from "@/lib/data/localAdapter"
 import { useSettingsStore } from "@/store/settings"
 import { useBookmarksStore } from "@/store/bookmarks"
 import { useAudioStore } from "@/store/audio"
+import { SimplePlayButton } from "@/components/ui/simple-play-button"
+import { PronunciationButton } from "@/components/ui/pronunciation-button"
 import { ReadingNavigation } from "@/components/reading-navigation"
-import { ReadingAchievements } from "@/components/reading-achievements"
 import type { Ayah, Translation, Transliteration, Surah } from "@/lib/data/adapter"
 
 export default function SurahReadingPage() {
@@ -99,13 +98,6 @@ export default function SurahReadingPage() {
     }
   }
 
-  const handleAudioToggle = (ayahNumber: number) => {
-    if (isPlaying && currentSurah === surahNumber && currentAyah === ayahNumber) {
-      pause()
-    } else {
-      play(surahNumber, ayahNumber)
-    }
-  }
 
   const navigateToSurah = (direction: 'prev' | 'next') => {
     const newSurah = direction === 'prev' ? surahNumber - 1 : surahNumber + 1
@@ -271,7 +263,6 @@ export default function SurahReadingPage() {
               const translation = translations.find(t => t.ayah === ayah.ayah)
               const transliteration = transliterations.find(t => t.ayah === ayah.ayah)
               const bookmarked = isBookmarked(surah.index, ayah.ayah)
-              const playingThis = isPlaying && currentSurah === surah.index && currentAyah === ayah.ayah
 
               return (
                 <Card key={ayah.ayah} className="border-2 border-border">
@@ -285,17 +276,17 @@ export default function SurahReadingPage() {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <Button
+                        <SimplePlayButton 
+                          text={ayah.text}
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleAudioToggle(ayah.ayah)}
-                        >
-                          {playingThis ? (
-                            <Pause className="w-4 h-4" />
-                          ) : (
-                            <Play className="w-4 h-4" />
-                          )}
-                        </Button>
+                        />
+                        
+                        <PronunciationButton
+                          originalText={ayah.text}
+                          variant="ghost"
+                          size="sm"
+                        />
                         
                         <Button
                           variant="ghost"
@@ -369,8 +360,6 @@ export default function SurahReadingPage() {
         </div>
       </div>
 
-      {/* Reading Achievements Overlay */}
-      <ReadingAchievements />
     </div>
   )
 }
